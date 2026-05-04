@@ -1,0 +1,54 @@
+# ================================================================
+# sdkconfig.defaults  —  Rev 2.0
+# Non-default menuconfig settings required for Cylonix TapShare
+# ================================================================
+# This file is committed to version control.
+# Applied automatically on first build (idf.py build).
+# Developers do NOT need to run menuconfig for these settings.
+#
+# To add a new setting: run menuconfig, find the CONFIG_xxx name,
+# add it here with a comment explaining why.
+# ================================================================
+
+# ── Bluetooth: use NimBLE, not Bluedroid ────────────────────────
+CONFIG_BT_ENABLED=y
+CONFIG_BT_NIMBLE_ENABLED=y
+CONFIG_BT_CONTROLLER_ENABLED=y
+
+# ── NimBLE roles: TapShare needs all four roles ─────────────────
+# Central    = initiates GAP connect (lower tap-timestamp watch)
+# Peripheral = accepts GAP connect, serves GATT characteristics
+# Observer   = active scanning for peer advertisements
+# Broadcaster= sends advertising packets with tap timestamp
+CONFIG_BT_NIMBLE_ROLE_CENTRAL=y
+CONFIG_BT_NIMBLE_ROLE_PERIPHERAL=y
+CONFIG_BT_NIMBLE_ROLE_OBSERVER=y
+CONFIG_BT_NIMBLE_ROLE_BROADCASTER=y
+
+# ── NimBLE connection limit ──────────────────────────────────────
+# TapShare is always one-to-one. Keeping this at 1 saves ~8 KB RAM.
+CONFIG_BT_NIMBLE_MAX_CONNECTIONS=1
+
+# ── NimBLE: do not use NVS for BLE bonding keys ─────────────────
+# TapShare has no pairing/bonding. Disabling frees NVS space.
+CONFIG_BT_NIMBLE_NVS_PERSIST=n
+
+# ── FreeRTOS: 1 ms tick rate ────────────────────────────────────
+CONFIG_FREERTOS_HZ=1000
+
+# ── FreeRTOS: stack overflow detection ──────────────────────────
+CONFIG_FREERTOS_WATCHPOINT_END_OF_STACK=y
+
+# ── Logging: Info level by default ──────────────────────────────
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y
+
+# ── I2C: new master driver (ESP-IDF 5.x) ────────────────────────
+CONFIG_I2C_ENABLE_DEBUG_LOG=n
+
+# ── WiFi (needed for wifi_sync.c NTP at boot) ───────────────────
+CONFIG_ESP_WIFI_ENABLED=y
+CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM=10
+CONFIG_ESP_WIFI_DYNAMIC_RX_BUFFER_NUM=32
+
+# ── SNTP ────────────────────────────────────────────────────────
+CONFIG_LWIP_SNTP_MAX_SERVERS=1

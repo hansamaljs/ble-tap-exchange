@@ -1,0 +1,39 @@
+/**
+ * ================================================================
+ * test_config.h.template
+ * Prototype test configuration — WiFi credentials + own profile
+ * ================================================================
+ * HOW TO USE
+ * ----------
+ * 1. Copy this file:
+ *      cp test_config.h.template test_config.h
+ * 2. Fill in your WiFi credentials and your own profile data.
+ * 3. test_config.h is gitignored — it never gets committed.
+ * 4. Only this template is in version control.
+ *
+ * PROFILE DATA
+ * ------------
+ * In the prototype, each watch's own profile (the data it shares
+ * with peers) is hardcoded here. On first boot, ble_service.c
+ * writes these values to NVS under the "cylonix" namespace.
+ * If NVS already has a profile (from a previous flash), this is
+ * skipped — the NVS value takes precedence.
+ *
+ * To force a reset to these defaults: idf.py erase-flash
+ *
+ * In production, the companion phone app writes the profile via
+ * a dedicated BLE GATT characteristic (planned for v2).
+ * ================================================================
+ */
+
+#pragma once
+
+/* ── WiFi credentials (for NTP time sync on boot) ─────────────── */
+#define TEST_WIFI_SSID      "YOUR_WIFI_SSID_HERE"
+#define TEST_WIFI_PASS      "YOUR_WIFI_PASSWORD_HERE"
+
+/* ── Own profile (what this watch shares when tapped) ──────────── */
+/* Keep name <= 31 chars, phone <= 15 chars, title <= 63 chars      */
+#define MY_PROFILE_NAME     "Your Name Here"
+#define MY_PROFILE_PHONE    "+00000000000"
+#define MY_PROFILE_TITLE    "Your Title Here"

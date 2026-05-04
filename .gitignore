@@ -1,0 +1,43 @@
+# ── ESP-IDF generated ────────────────────────────────────────────
+build/
+**/build/
+sdkconfig
+**/sdkconfig
+**/sdkconfig.old
+managed_components/
+**/managed_components/
+dependencies.lock
+**/dependencies.lock
+
+# ── Secrets — NEVER commit ───────────────────────────────────────
+# WiFi credentials and personal profile data
+tests/test_config.h
+
+# ── Large binary artifacts ────────────────────────────────────────
+*.zip
+*.bin
+*.elf
+*.map
+*.a
+
+# ── Clang tooling generated ───────────────────────────────────────
+compile_commands.json
+.cache/
+
+# ── Python / toolchain ───────────────────────────────────────────
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# ── IDE ──────────────────────────────────────────────────────────
+.vscode/
+**/.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ── Keep the template (it has no real credentials) ───────────────
+!tests/test_config.h.template
